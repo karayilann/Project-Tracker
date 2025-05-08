@@ -7,12 +7,14 @@ using ProjectTracker.Core.Enums;
 
 namespace ProjectTracker.Core.Entities
 {
-    class Project
+    public class Project
     {
         public int ProjectId { get; set; }
         public string ProjectName { get; set; }
         public string? ProjectDescription { get; set; }
         public ProjectStatus ProjectStatus { get; set; }
+        public InAppPriorities InAppPrioritiy{ get; set; }
+        public List<User> AssignedUsers { get; set; }
 
     }
 }

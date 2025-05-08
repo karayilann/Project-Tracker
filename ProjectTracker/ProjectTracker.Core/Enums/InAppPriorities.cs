@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProjectTracker.Core.Enums
 {
-    public enum ProjectStatus
+    public enum InAppPriorities
     {
-        NotStarted = 0,
-        InProgress = 1,
-        Completed = 2,
-        OnHold = 3,
-        Cancelled = 4
+        Low,
+        Medium,
+        High,
+        Urgent
     }
 }

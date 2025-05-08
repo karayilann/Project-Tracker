@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjectTracker.Core.Enums
 {
-    enum TaskStatus
+    public enum TaskStatus
     {
         NotStarted = 0,
         InProgress = 1,

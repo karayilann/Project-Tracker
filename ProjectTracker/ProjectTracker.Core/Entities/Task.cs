@@ -1,8 +1,9 @@
-﻿using TaskStatus = ProjectTracker.Core.Enums.TaskStatus;
+﻿using ProjectTracker.Core.Enums;
+using TaskStatus = ProjectTracker.Core.Enums.TaskStatus;
 
 namespace ProjectTracker.Core.Entities
 {
-    class Task
+    public class Task
     {
         public int TaskID { get; set; }
         public string TaskTitle { get; set; }
@@ -10,5 +11,7 @@ namespace ProjectTracker.Core.Entities
         public Project Project { get; set; }
         public User AssignedUser { get; set; }
         public TaskStatus TaskStatus { get; set; }
+        public InAppPriorities InAppPrioritiy { get; set; }
+
     }
 }

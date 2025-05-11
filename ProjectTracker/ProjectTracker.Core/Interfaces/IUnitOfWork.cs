@@ -13,6 +13,6 @@ namespace ProjectTracker.Core.Interfaces
         IGenericRepository<User> Users { get; set; }
         IGenericRepository<WorkItem> WorkItem { get; set; }
         IGenericRepository<Role> Roles { get; set; }
-
+        Task<int> SaveChangesAsync();
     }
 }

@@ -9,7 +9,6 @@ namespace ProjectTracker.Repository.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=MAMIROG\\MAMIROG;Initial Catalog=ProjectTrackerDB;Integrated Security=True;TrustServerCertificate=True;");
-
         }
 
         public DbSet<Project> Projects { get; set; }

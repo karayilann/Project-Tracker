@@ -65,43 +65,6 @@ namespace ProjectTracker.Repository.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("ProjectTracker.Core.Entities.Task", b =>
-                {
-                    b.Property<int>("TaskID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TaskID"));
-
-                    b.Property<int>("AssignedUserUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("InAppPrioritiy")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TaskDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TaskStatus")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TaskTitle")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TaskID");
-
-                    b.HasIndex("AssignedUserUserId");
-
-                    b.HasIndex("ProjectId");
-
-                    b.ToTable("Tasks");
-                });
-
             modelBuilder.Entity("ProjectTracker.Core.Entities.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -137,7 +100,59 @@ namespace ProjectTracker.Repository.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ProjectTracker.Core.Entities.Task", b =>
+            modelBuilder.Entity("ProjectTracker.Core.Entities.WorkItem", b =>
+                {
+                    b.Property<int>("WorkItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WorkItemId"));
+
+                    b.Property<int>("AssignedUserUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("InAppPrioritiy")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("WorkItemStatus")
+                        .HasColumnType("int");
+
+                    b.HasKey("WorkItemId");
+
+                    b.HasIndex("AssignedUserUserId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("WorkItems");
+                });
+
+            modelBuilder.Entity("ProjectTracker.Core.Entities.User", b =>
+                {
+                    b.HasOne("ProjectTracker.Core.Entities.Project", null)
+                        .WithMany("AssignedUsers")
+                        .HasForeignKey("ProjectId");
+
+                    b.HasOne("ProjectTracker.Core.Entities.Role", "Role")
+                        .WithMany("AssignedUsers")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("ProjectTracker.Core.Entities.WorkItem", b =>
                 {
                     b.HasOne("ProjectTracker.Core.Entities.User", "AssignedUser")
                         .WithMany()
@@ -154,21 +169,6 @@ namespace ProjectTracker.Repository.Migrations
                     b.Navigation("AssignedUser");
 
                     b.Navigation("Project");
-                });
-
-            modelBuilder.Entity("ProjectTracker.Core.Entities.User", b =>
-                {
-                    b.HasOne("ProjectTracker.Core.Entities.Project", null)
-                        .WithMany("AssignedUsers")
-                        .HasForeignKey("ProjectId");
-
-                    b.HasOne("ProjectTracker.Core.Entities.Role", "Role")
-                        .WithMany("AssignedUsers")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("ProjectTracker.Core.Entities.Project", b =>

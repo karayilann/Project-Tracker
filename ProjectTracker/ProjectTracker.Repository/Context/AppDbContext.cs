@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjectTracker.Core.Entities;
-using Task = ProjectTracker.Core.Entities.Task;
 
 namespace ProjectTracker.Repository.Context
 {
@@ -13,7 +12,7 @@ namespace ProjectTracker.Repository.Context
 
         public DbSet<Project> Projects { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<Task> Tasks { get; set; }
+        public DbSet<WorkItem> WorkItems { get; set; }
         public DbSet<User> Users { get; set; }  
         
     }

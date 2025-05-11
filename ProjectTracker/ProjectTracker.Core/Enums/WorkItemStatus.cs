@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
+﻿
 namespace ProjectTracker.Core.Enums
 {
-    public enum TaskStatus
+    public enum WorkItemStatus
     {
         NotStarted = 0,
         InProgress = 1,

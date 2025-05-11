@@ -5,7 +5,7 @@
 namespace ProjectTracker.Repository.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class NewDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -68,44 +68,34 @@ namespace ProjectTracker.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tasks",
+                name: "WorkItems",
                 columns: table => new
                 {
-                    TaskID = table.Column<int>(type: "int", nullable: false)
+                    WorkItemId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TaskTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TaskDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProjectId = table.Column<int>(type: "int", nullable: false),
                     AssignedUserUserId = table.Column<int>(type: "int", nullable: false),
-                    TaskStatus = table.Column<int>(type: "int", nullable: false),
+                    WorkItemStatus = table.Column<int>(type: "int", nullable: false),
                     InAppPrioritiy = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tasks", x => x.TaskID);
+                    table.PrimaryKey("PK_WorkItems", x => x.WorkItemId);
                     table.ForeignKey(
-                        name: "FK_Tasks_Projects_ProjectId",
+                        name: "FK_WorkItems_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "ProjectId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Tasks_Users_AssignedUserUserId",
+                        name: "FK_WorkItems_Users_AssignedUserUserId",
                         column: x => x.AssignedUserUserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tasks_AssignedUserUserId",
-                table: "Tasks",
-                column: "AssignedUserUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tasks_ProjectId",
-                table: "Tasks",
-                column: "ProjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_ProjectId",
@@ -116,13 +106,23 @@ namespace ProjectTracker.Repository.Migrations
                 name: "IX_Users_RoleId",
                 table: "Users",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkItems_AssignedUserUserId",
+                table: "WorkItems",
+                column: "AssignedUserUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkItems_ProjectId",
+                table: "WorkItems",
+                column: "ProjectId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Tasks");
+                name: "WorkItems");
 
             migrationBuilder.DropTable(
                 name: "Users");

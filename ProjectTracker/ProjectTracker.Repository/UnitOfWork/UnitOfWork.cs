@@ -6,25 +6,24 @@ using System.Threading.Tasks;
 using ProjectTracker.Core.Entities;
 using ProjectTracker.Core.Interfaces;
 using ProjectTracker.Repository.Context;
-using Task = ProjectTracker.Core.Entities.Task;
 
 namespace ProjectTracker.Repository.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
         public UnitOfWork(AppDbContext context, IGenericRepository<Project> projects, IGenericRepository<User> users, 
-            IGenericRepository<Task> tasks, IGenericRepository<Role> roles)
+            IGenericRepository<WorkItem> workItem, IGenericRepository<Role> roles)
         {
             _context = context;
             Projects = projects;
             Users = users;
-            Tasks = tasks;
+            WorkItem = workItem;
             Roles = roles;
         }
 
         public IGenericRepository<Project> Projects { get; set; }
         public IGenericRepository<User> Users { get; set; }
-        public IGenericRepository<Task> Tasks { get; set; }
+        public IGenericRepository<WorkItem> WorkItem { get; set; }
         public IGenericRepository<Role> Roles { get; set; }
 
         private readonly AppDbContext _context;

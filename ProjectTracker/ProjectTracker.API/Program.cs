@@ -2,6 +2,7 @@ using ProjectTracker.Core.Interfaces;
 using ProjectTracker.Repository.Context;
 using ProjectTracker.Repository.Repositories;
 using ProjectTracker.Repository.UnitOfWork;
+using ProjectTracker.Service.Mapping;
 using ProjectTracker.Service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddControllers();
 
-// DI
+
+builder.Services.AddAutoMapper(typeof(MapProfile));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

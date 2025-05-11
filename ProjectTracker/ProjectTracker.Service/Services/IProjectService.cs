@@ -9,7 +9,7 @@ namespace ProjectTracker.Service.Services
 {
     public interface IProjectService
     {
-        Task<IEnumerable<Project>> GelAllAsync();
+        Task<IEnumerable<Project>> GetAllAsync();
         Task<Project> GetByIdAsync(int id);
         Task AddAsync(Project project);
         Task UpdateAsync(Project project);

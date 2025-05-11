@@ -15,7 +15,7 @@ namespace ProjectTracker.Repository.Repositories
         private readonly AppDbContext _context;
         private readonly DbSet<T> _dbSet;
 
-        public GenericRepository(DbSet<T> dbSet, AppDbContext context)
+        public GenericRepository(AppDbContext context)
         {
             _context = context;
             _dbSet = _context.Set<T>();

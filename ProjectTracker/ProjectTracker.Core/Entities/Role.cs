@@ -10,6 +10,6 @@ namespace ProjectTracker.Core.Entities
     {
         public int RoleId { get; set; }
         public string RoleName { get; set; }
-        public List<User> AssignedUsers { get; set; }
+        public List<User>? AssignedUsers { get; set; }
     }
 }

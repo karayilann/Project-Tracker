@@ -18,7 +18,7 @@ namespace ProjectTracker.Service.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Project>> GelAllAsync()
+        public async Task<IEnumerable<Project>> GetAllAsync()
         {
             return await _unitOfWork.Projects.GetAllAsync();
         }

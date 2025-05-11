@@ -1,20 +1,21 @@
-﻿using System;
+﻿using ProjectTracker.Core.Entities;
+using ProjectTracker.Core.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ProjectTracker.Core.Enums;
 
-namespace ProjectTracker.Core.Entities
+namespace ProjectTracker.Core.DTOs.ProjectDtos
 {
-    public class Project
+    public class UpdateProjectDto
     {
         public int ProjectId { get; set; }
         public string ProjectName { get; set; }
         public string? ProjectDescription { get; set; }
         public ProjectStatus ProjectStatus { get; set; }
-        public InAppPriorities InAppPrioritiy{ get; set; }
-        public List<User>? AssignedUsers { get; set; }
+        public InAppPriorities InAppPrioritiy { get; set; }
+        public List<int>? AssignedUsers { get; set; }
 
     }
 }

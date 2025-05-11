@@ -12,7 +12,7 @@ namespace ProjectTracker.Core.Entities
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Mail { get; set; }
-        public Role Role { get; set; }
+        public Role? Role { get; set; }
 
     }
 }

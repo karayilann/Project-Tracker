@@ -13,7 +13,7 @@ namespace ProjectTracker.Service.Services
         Task<Project> GetByIdAsync(int id);
         Task AddAsync(Project project);
         Task UpdateAsync(Project project);
-        Task DeleteAsync(Project project);
+        Task DeleteAsync(int id);
 
     }
 }

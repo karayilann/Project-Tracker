@@ -11,6 +11,7 @@ namespace ProjectTracker.Core.Entities
         public User? AssignedUser { get; set; }
         public WorkItemStatus WorkItemStatus { get; set; }
         public InAppPriorities InAppPrioritiy { get; set; }
-
+        public int ProjectId { get; set; }
+        public int AssignedUserId { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectTracker.Repository.Context;
 
@@ -10,9 +11,11 @@ using ProjectTracker.Repository.Context;
 namespace ProjectTracker.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250512202252_ConfigureEntityRelationships")]
+    partial class ConfigureEntityRelationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,16 +48,6 @@ namespace ProjectTracker.Repository.Migrations
                     b.HasKey("ProjectId");
 
                     b.ToTable("Projects");
-
-                    b.HasData(
-                        new
-                        {
-                            ProjectId = 1,
-                            InAppPrioritiy = 2,
-                            ProjectDescription = "Entity ilişkilerini test etmek için örnek proje",
-                            ProjectName = "Proje Takip Sistemi",
-                            ProjectStatus = 1
-                        });
                 });
 
             modelBuilder.Entity("ProjectTracker.Core.Entities.Role", b =>
@@ -72,18 +65,6 @@ namespace ProjectTracker.Repository.Migrations
                     b.HasKey("RoleId");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            RoleId = 1,
-                            RoleName = "Admin"
-                        },
-                        new
-                        {
-                            RoleId = 2,
-                            RoleName = "Developer"
-                        });
                 });
 
             modelBuilder.Entity("ProjectTracker.Core.Entities.WorkItem", b =>
@@ -121,18 +102,6 @@ namespace ProjectTracker.Repository.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("WorkItems");
-
-                    b.HasData(
-                        new
-                        {
-                            WorkItemId = 1,
-                            AssignedUserId = 2,
-                            Description = "ProjectController yazılacak",
-                            InAppPrioritiy = 1,
-                            ProjectId = 1,
-                            Title = "API geliştirme",
-                            WorkItemStatus = 1
-                        });
                 });
 
             modelBuilder.Entity("ProjectUser", b =>
@@ -148,18 +117,6 @@ namespace ProjectTracker.Repository.Migrations
                     b.HasIndex("ProjectsProjectId");
 
                     b.ToTable("ProjectUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            AssignedUsersUserId = 1,
-                            ProjectsProjectId = 1
-                        },
-                        new
-                        {
-                            AssignedUsersUserId = 2,
-                            ProjectsProjectId = 1
-                        });
                 });
 
             modelBuilder.Entity("User", b =>
@@ -190,24 +147,6 @@ namespace ProjectTracker.Repository.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            Mail = "ali@example.com",
-                            Name = "Ali",
-                            RoleId = 1,
-                            Surname = "Yılmaz"
-                        },
-                        new
-                        {
-                            UserId = 2,
-                            Mail = "ayse@example.com",
-                            Name = "Ayşe",
-                            RoleId = 2,
-                            Surname = "Demir"
-                        });
                 });
 
             modelBuilder.Entity("ProjectTracker.Core.Entities.WorkItem", b =>

@@ -31,6 +31,7 @@ namespace ProjectTracker.Service.Services
         public async Task AddAsync(Project project)
         {
             await _unitOfWork.Projects.AddAsync(project);
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(Project project)

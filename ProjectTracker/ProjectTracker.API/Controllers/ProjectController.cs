@@ -38,7 +38,7 @@ namespace ProjectTracker.API.Controllers
         public async Task<IActionResult> CreateProject(CreateProjectDto createProjectDto)
         {
             var mapping = _mapper.Map<Project>(createProjectDto);
-            await _projectService.AddAsync(mapping);
+            await _projectService.AddAsync(mapping,createProjectDto.AssignedUserIds);
             return Ok("Başarıyla Eklendi");
         }
 

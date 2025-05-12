@@ -31,6 +31,11 @@ namespace ProjectTracker.Repository.Repositories
             return await _dbSet.FindAsync(id);
         }
 
+        public async Task<List<T>> WhereAsync(Expression<Func<T, bool>> filter)
+        {
+            return await _dbSet.Where(filter).ToListAsync();
+        }
+
         public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> filterExpression)
         {
             return await _dbSet.Where(filterExpression).ToListAsync();

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectTracker.Core.Entities;
+﻿using ProjectTracker.Core.Entities;
 
 namespace ProjectTracker.Service.Services
 {
@@ -11,7 +6,7 @@ namespace ProjectTracker.Service.Services
     {
         Task<IEnumerable<Project>> GetAllAsync();
         Task<Project> GetByIdAsync(int id);
-        Task AddAsync(Project project);
+        Task AddAsync(Project project,List<int> userIds);
         Task UpdateAsync(Project project);
         Task DeleteAsync(int id);
 

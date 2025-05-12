@@ -11,6 +11,7 @@ namespace ProjectTracker.Core.Interfaces
     {
         Task<IEnumerable<T>> GetAllAsync();
         Task<T?> GetByIdAsync(int id);
+        Task<List<T>> WhereAsync(Expression<Func<T, bool>> filter);
         Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> filterExpression);
         Task AddAsync(T entity);
         void Delete(T entity);

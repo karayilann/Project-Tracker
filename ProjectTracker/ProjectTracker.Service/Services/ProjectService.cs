@@ -28,8 +28,27 @@ namespace ProjectTracker.Service.Services
             return await _unitOfWork.Projects.GetByIdAsync(id);
         }
 
-        public async Task AddAsync(Project project)
+        public async Task AddAsync(Project project, List<int> userIds)
         {
+            List<User>? users;
+            if (userIds?.Any() == true)
+            {
+
+                users = await _unitOfWork.Users.WhereAsync(u => userIds.Contains(u.UserId));
+            }
+            else
+            {
+                users = new List<User>();
+            }
+
+            project.AssignedUsers = users;
+            
+            Console.WriteLine("User Count: " + users.Count);
+            foreach (var user in users)
+            {
+                Console.WriteLine($"ID : {user.UserId}  Adı : {user.Name}");
+            }
+
             await _unitOfWork.Projects.AddAsync(project);
             await _unitOfWork.SaveChangesAsync();
         }

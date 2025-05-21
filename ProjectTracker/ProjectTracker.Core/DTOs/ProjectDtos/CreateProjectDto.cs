@@ -10,6 +10,7 @@ namespace ProjectTracker.Core.DTOs.ProjectDtos
         public ProjectStatus ProjectStatus { get; set; }
         public InAppPriorities InAppPrioritiy { get; set; }
         public List<int>? AssignedUserIds { get; set; }
+        public List<WorkItem>? WorkItems { get; set; } = []; // Work Item dtosu yazılınca bunu da ekle
     }
 
 }

@@ -21,7 +21,7 @@ namespace ProjectTracker.Repository.Repositories
             _dbSet = _context.Set<T>();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<List<T>> GetAllAsync()
         {
            return await _dbSet.ToListAsync();
         }
@@ -36,10 +36,23 @@ namespace ProjectTracker.Repository.Repositories
             return await _dbSet.Where(filter).ToListAsync();
         }
 
-        public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> filterExpression)
+        public async Task<List<T>> FindAsync(Expression<Func<T, bool>> filterExpression)
         {
             return await _dbSet.Where(filterExpression).ToListAsync();
         }
+
+        public async Task<List<T>> GetAllWithIncludesAsync(params Expression<Func<T, object>>[] includeProperties)
+        {
+            IQueryable<T> query = _dbSet;
+
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return await query.ToListAsync();
+        }
+
 
         public async Task AddAsync(T entity)
         {

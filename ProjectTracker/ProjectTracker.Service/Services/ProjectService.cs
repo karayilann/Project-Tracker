@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ProjectTracker.Core.DTOs.ProjectDtos;
+using ProjectTracker.Core.DTOs.UserDtos;
 using ProjectTracker.Core.Entities;
 using ProjectTracker.Core.Interfaces;
 using ProjectTracker.Repository.Context;
@@ -18,10 +15,37 @@ namespace ProjectTracker.Service.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Project>> GetAllAsync()
+        public async Task<List<GetProjectsDto>> GetAllAsync()
         {
-            return await _unitOfWork.Projects.GetAllAsync();
+            var projects = await _unitOfWork.Projects.GetAllWithIncludesAsync(x => x.AssignedUsers, y => y.WorkItems);
+
+            return projects.Select(p => new GetProjectsDto {
+                ProjectId = p.ProjectId,
+                ProjectName = p.ProjectName,
+                ProjectDescription = p.ProjectDescription,
+                ProjectStatus = p.ProjectStatus,
+                InAppPrioritiy = p.InAppPrioritiy,
+                AssignedUsers = p.AssignedUsers?.Select(u => new GetProjectUserDto
+                {
+                    UserId = u.UserId,
+                    Name = u.Name
+                }).ToList()
+                ,
+                WorkItems = p.WorkItems?.Select(w => new GetProjectWorkItemDto
+                {
+                    Title = w.Title,
+                    Description = w.Description,
+                    WorkItemStatus = w.WorkItemStatus,
+                    InAppPrioritiy = w.InAppPrioritiy,
+                    AssignedUser = new GetProjectUserDto
+                    {
+                        UserId = w.AssignedUser.UserId,
+                        Name = w.AssignedUser.Name
+                    }
+                }).ToList()
+            }).ToList();
         }
+
 
         public async Task<Project> GetByIdAsync(int id)
         {

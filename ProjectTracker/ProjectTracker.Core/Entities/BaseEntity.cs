@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectTracker.Core.DTOs.UserDtos
+namespace ProjectTracker.Core.Entities
 {
-    public class GetProjectUserDto
+    public class BaseEntity
     {
-        public int UserId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
 
     }

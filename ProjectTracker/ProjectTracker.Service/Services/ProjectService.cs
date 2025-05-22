@@ -20,29 +20,32 @@ namespace ProjectTracker.Service.Services
             var projects = await _unitOfWork.Projects.GetAllWithIncludesAsync(x => x.AssignedUsers, y => y.WorkItems);
 
             return projects.Select(p => new GetProjectsDto {
-                ProjectId = p.ProjectId,
-                ProjectName = p.ProjectName,
-                ProjectDescription = p.ProjectDescription,
-                ProjectStatus = p.ProjectStatus,
+                ProjectId = p.Id,
+                ProjectName = p.Name,
+                ProjectDescription = p.Description,
+                ProjectStatus = p.Status,
                 InAppPrioritiy = p.InAppPrioritiy,
                 AssignedUsers = p.AssignedUsers?.Select(u => new GetProjectUserDto
                 {
-                    UserId = u.UserId,
+                    UserId = u.Id,
                     Name = u.Name
                 }).ToList()
                 ,
                 WorkItems = p.WorkItems?.Select(w => new GetProjectWorkItemDto
                 {
-                    Title = w.Title,
+                    Title = w.Name,
                     Description = w.Description,
                     WorkItemStatus = w.WorkItemStatus,
                     InAppPrioritiy = w.InAppPrioritiy,
-                    AssignedUser = new GetProjectUserDto
-                    {
-                        UserId = w.AssignedUser.UserId,
-                        Name = w.AssignedUser.Name
-                    }
+                    AssignedUser = w.AssignedUser != null
+                        ? new GetProjectUserDto
+                        {
+                            UserId = w.AssignedUser.Id,
+                            Name = w.AssignedUser.Name
+                        }
+                        : null
                 }).ToList()
+                
             }).ToList();
         }
 
@@ -58,7 +61,7 @@ namespace ProjectTracker.Service.Services
             if (userIds?.Any() == true)
             {
 
-                users = await _unitOfWork.Users.WhereAsync(u => userIds.Contains(u.UserId));
+                users = await _unitOfWork.Users.WhereAsync(u => userIds.Contains(u.Id));
             }
             else
             {
@@ -70,7 +73,7 @@ namespace ProjectTracker.Service.Services
             Console.WriteLine("User Count: " + users.Count);
             foreach (var user in users)
             {
-                Console.WriteLine($"ID : {user.UserId}  Adı : {user.Name}");
+                Console.WriteLine($"ID : {user.Id}  Adı : {user.Name}");
             }
 
             await _unitOfWork.Projects.AddAsync(project);

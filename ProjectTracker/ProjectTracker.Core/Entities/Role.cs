@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProjectTracker.Core.Entities
 {
-    public class Role
+    public class Role : BaseEntity
     {
-        public int RoleId { get; set; }
-        public string RoleName { get; set; }
-        public List<User>? AssignedUsers { get; set; }
+        public List<User>? AssignedUsers { get; set; } = new List<User>();
     }
 }

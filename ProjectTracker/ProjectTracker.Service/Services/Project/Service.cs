@@ -1,11 +1,12 @@
 ﻿using ProjectTracker.Core.DTOs.ProjectDtos;
 using ProjectTracker.Core.DTOs.UserDtos;
-using ProjectTracker.Core.Entities;
-using ProjectTracker.Core.Interfaces;
-using ProjectTracker.Repository.Context;
+using ProjectTracker.Core.Interfaces.Services;
+using ProjectTracker.Core.Interfaces.UnitOfWork;
 
-namespace ProjectTracker.Service.Services
+namespace ProjectTracker.Service.Services.Project
 {
+    using Core.Entities;
+
     public class ProjectService : IProjectService
     {
         private readonly IUnitOfWork _unitOfWork;

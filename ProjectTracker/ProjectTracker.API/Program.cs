@@ -1,11 +1,13 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using ProjectTracker.Core.Interfaces;
+using ProjectTracker.Core.Interfaces.Repositories;
+using ProjectTracker.Core.Interfaces.Services;
+using ProjectTracker.Core.Interfaces.UnitOfWork;
 using ProjectTracker.Repository.Context;
 using ProjectTracker.Repository.Repositories;
 using ProjectTracker.Repository.UnitOfWork;
 using ProjectTracker.Service.Mapping;
-using ProjectTracker.Service.Services;
+using ProjectTracker.Service.Services.Project;
 
 var builder = WebApplication.CreateBuilder(args);
 

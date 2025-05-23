@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectTracker.Core.DTOs.ProjectDtos;
 using ProjectTracker.Core.Entities;
-using ProjectTracker.Service.Services;
+using ProjectTracker.Core.Interfaces.Services;
 
 namespace ProjectTracker.API.Controllers
 {

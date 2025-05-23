@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectTracker.Core.Entities;
+﻿using ProjectTracker.Core.Entities;
+using ProjectTracker.Core.Interfaces.Repositories;
 
-namespace ProjectTracker.Core.Interfaces
+namespace ProjectTracker.Core.Interfaces.UnitOfWork
 {
     public interface IUnitOfWork
     {

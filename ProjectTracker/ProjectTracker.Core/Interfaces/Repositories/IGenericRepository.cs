@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectTracker.Core.Interfaces
+namespace ProjectTracker.Core.Interfaces.Repositories
 {
     public interface IGenericRepository<T>  where T : class
     {

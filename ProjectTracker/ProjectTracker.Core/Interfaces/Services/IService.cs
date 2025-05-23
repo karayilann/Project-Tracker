@@ -1,7 +1,7 @@
 ﻿using ProjectTracker.Core.DTOs.ProjectDtos;
 using ProjectTracker.Core.Entities;
 
-namespace ProjectTracker.Service.Services
+namespace ProjectTracker.Core.Interfaces.Services
 {
     public interface IProjectService
     {

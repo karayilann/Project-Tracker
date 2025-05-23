@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ProjectTracker.Core.Interfaces;
+using ProjectTracker.Core.Interfaces.Repositories;
 using ProjectTracker.Repository.Context;
 
 namespace ProjectTracker.Repository.Repositories

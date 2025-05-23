@@ -12,9 +12,13 @@ namespace ProjectTracker.Service.Mapping
             CreateMap<Project, CreateProjectDto>().ReverseMap();
             CreateMap<Project, UpdateProjectDto>().ReverseMap();
             CreateMap<Project, GetProjectsDto>().ReverseMap();
+            CreateMap<Project, GetProjectWorkItemDto>().ReverseMap();
 
             CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, GetProjectUserDto>().ReverseMap();
 
+
+            CreateMap<WorkItem, GetProjectWorkItemDto>().ReverseMap();
         }
     }
 }

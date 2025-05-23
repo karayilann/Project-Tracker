@@ -1,6 +1,4 @@
-﻿using ProjectTracker.Core.DTOs.ProjectDtos;
-using ProjectTracker.Core.DTOs.UserDtos;
-using ProjectTracker.Core.Interfaces.Services;
+﻿using ProjectTracker.Core.Interfaces.Services;
 using ProjectTracker.Core.Interfaces.UnitOfWork;
 
 namespace ProjectTracker.Service.Services.Project
@@ -16,44 +14,20 @@ namespace ProjectTracker.Service.Services.Project
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<GetProjectsDto>> GetAllAsync()
+        public async Task<List<Project>> GetAllAsync()
         {
             var projects = await _unitOfWork.Projects.GetAllWithIncludesAsync(x => x.AssignedUsers, y => y.WorkItems);
-
-            return projects.Select(p => new GetProjectsDto {
-                ProjectId = p.Id,
-                ProjectName = p.Name,
-                ProjectDescription = p.Description,
-                ProjectStatus = p.Status,
-                InAppPrioritiy = p.InAppPrioritiy,
-                AssignedUsers = p.AssignedUsers?.Select(u => new GetProjectUserDto
-                {
-                    UserId = u.Id,
-                    Name = u.Name
-                }).ToList()
-                ,
-                WorkItems = p.WorkItems?.Select(w => new GetProjectWorkItemDto
-                {
-                    Title = w.Name,
-                    Description = w.Description,
-                    WorkItemStatus = w.WorkItemStatus,
-                    InAppPrioritiy = w.InAppPrioritiy,
-                    AssignedUser = w.AssignedUser != null
-                        ? new GetProjectUserDto
-                        {
-                            UserId = w.AssignedUser.Id,
-                            Name = w.AssignedUser.Name
-                        }
-                        : null
-                }).ToList()
-                
-            }).ToList();
+            return projects;
         }
-
 
         public async Task<Project> GetByIdAsync(int id)
         {
             return await _unitOfWork.Projects.GetByIdAsync(id);
+        }
+
+        public Task AddAsync(Project entity)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task AddAsync(Project project, List<int> userIds)

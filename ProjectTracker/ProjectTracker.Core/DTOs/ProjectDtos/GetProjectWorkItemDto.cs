@@ -10,7 +10,7 @@ namespace ProjectTracker.Core.DTOs.ProjectDtos
 {
     public class GetProjectWorkItemDto
     {
-        public string Title { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
         public GetProjectUserDto? AssignedUser { get; set; }
         public WorkItemStatus WorkItemStatus { get; set; }

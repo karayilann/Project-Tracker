@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectTracker.Core.DTOs.ProjectDtos;
+using ProjectTracker.Core.DTOs.UserDtos;
 using ProjectTracker.Core.Entities;
 using ProjectTracker.Core.Interfaces.Services;
 
@@ -24,8 +25,10 @@ namespace ProjectTracker.API.Controllers
         public async Task<IActionResult> GetAllProjects()
         {
             var projects = await _projectService.GetAllAsync();
-            return Ok(projects);
+            var dto = _mapper.Map<List<GetProjectsDto>>(projects);
+            return Ok(dto);
         }
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
@@ -35,10 +38,10 @@ namespace ProjectTracker.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProject(CreateProjectDto createProjectDto)
+        public async Task<IActionResult> AddProject(CreateProjectDto createProjectDto)
         {
             var mapping = _mapper.Map<Project>(createProjectDto);
-            await _projectService.AddAsync(mapping,createProjectDto.AssignedUserIds);
+            await _projectService.AddAsync(mapping, createProjectDto.AssignedUserIds);
             return Ok("Başarıyla Eklendi");
         }
 

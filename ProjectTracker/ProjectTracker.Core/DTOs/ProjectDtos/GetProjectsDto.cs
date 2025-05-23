@@ -11,10 +11,10 @@ namespace ProjectTracker.Core.DTOs.ProjectDtos
 {
     public class GetProjectsDto
     {
-        public int ProjectId { get; set; }
-        public string ProjectName { get; set; }
-        public string? ProjectDescription { get; set; }
-        public ProjectStatus ProjectStatus { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string? Description { get; set; }
+        public ProjectStatus Status { get; set; }
         public InAppPriorities InAppPrioritiy { get; set; }
         public List<GetProjectUserDto>? AssignedUsers { get; set; }
         public List<GetProjectWorkItemDto>? WorkItems { get; set; }

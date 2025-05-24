@@ -29,7 +29,7 @@ namespace ProjectTracker.Service.Mapping
             CreateMap<WorkItem, CreateWorkItemDto>().ReverseMap();
             CreateMap<WorkItem, UpdateWorkItemDto>().ReverseMap();
             CreateMap<WorkItem, WorkItemSimpleDto>().ReverseMap();
-            CreateMap<WorkItem, WorkItem>().ReverseMap();
+            CreateMap<WorkItem, WorkItemDto>().ReverseMap();
 
             CreateMap<Role, RoleDto>().ReverseMap();
             CreateMap<Role, CreateRoleDto>().ReverseMap();

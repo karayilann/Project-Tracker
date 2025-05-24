@@ -10,5 +10,5 @@ public class UpdateWorkItemDto
     public WorkItemStatus WorkItemStatus { get; set; }
     public InAppPriorities InAppPrioritiy { get; set; }
     public int ProjectId { get; set; }
-    public int AssignedUserId { get; set; }
+    public int? AssignedUserId { get; set; }
 }

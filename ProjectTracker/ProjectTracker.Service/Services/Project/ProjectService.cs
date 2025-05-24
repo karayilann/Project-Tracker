@@ -1,4 +1,5 @@
-﻿using ProjectTracker.Core.Interfaces.Services;
+﻿using System.Linq.Expressions;
+using ProjectTracker.Core.Interfaces.Services;
 using ProjectTracker.Core.Interfaces.UnitOfWork;
 
 namespace ProjectTracker.Service.Services.Project
@@ -25,32 +26,8 @@ namespace ProjectTracker.Service.Services.Project
             return await _unitOfWork.Projects.GetByIdAsync(id);
         }
 
-        public Task AddAsync(Project entity)
+        public async Task AddAsync(Project project)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task AddAsync(Project project, List<int> userIds)
-        {
-            List<User>? users;
-            if (userIds?.Any() == true)
-            {
-
-                users = await _unitOfWork.Users.WhereAsync(u => userIds.Contains(u.Id));
-            }
-            else
-            {
-                users = new List<User>();
-            }
-
-            project.AssignedUsers = users;
-            
-            Console.WriteLine("User Count: " + users.Count);
-            foreach (var user in users)
-            {
-                Console.WriteLine($"ID : {user.Id}  Adı : {user.Name}");
-            }
-
             await _unitOfWork.Projects.AddAsync(project);
             await _unitOfWork.SaveChangesAsync();
         }
@@ -70,5 +47,18 @@ namespace ProjectTracker.Service.Services.Project
                 await _unitOfWork.SaveChangesAsync();
             }
         }
+        public async Task<List<User>> GetUsersByIdsAsync(List<int> userIds)
+        {
+            if (userIds == null || !userIds.Any())
+                return new List<User>();
+
+            return await _unitOfWork.Users.WhereAsync(u => userIds.Contains(u.Id));
+        }
+
+        public async Task<List<Project>> WhereAsync(Expression<Func<Project, bool>> expression)
+        {
+            return await _unitOfWork.Projects.WhereAsync(expression);
+        }
+
     }
 }

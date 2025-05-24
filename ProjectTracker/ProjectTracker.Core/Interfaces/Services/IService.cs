@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System.Linq.Expressions;
+using ProjectTracker.Core.Entities;
 
 namespace ProjectTracker.Core.Interfaces.Services
 {
@@ -10,9 +8,9 @@ namespace ProjectTracker.Core.Interfaces.Services
     {
         Task<List<T>> GetAllAsync();
         Task<T?> GetByIdAsync(int id);
+        Task<List<T>> WhereAsync(Expression<Func<T, bool>> expression);
         Task AddAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(int id);
-
     }
 }

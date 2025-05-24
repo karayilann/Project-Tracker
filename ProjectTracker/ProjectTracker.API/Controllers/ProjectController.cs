@@ -40,15 +40,23 @@ namespace ProjectTracker.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProject(CreateProjectDto createProjectDto)
         {
-            var mapping = _mapper.Map<Project>(createProjectDto);
-            await _projectService.AddAsync(mapping, createProjectDto.AssignedUserIds);
+            var project = _mapper.Map<Project>(createProjectDto);
+
+            if (createProjectDto.AssignedUserIds != null && createProjectDto.AssignedUserIds.Any())
+            {
+                var users = await _projectService.GetUsersByIdsAsync(createProjectDto.AssignedUserIds);
+                project.AssignedUsers = users.ToList();
+            }
+
+            await _projectService.AddAsync(project);
             return Ok("Başarıyla Eklendi");
         }
 
+
         [HttpPut]
-        public async Task<IActionResult> UpdateProject(UpdateProjectDto createProject)
+        public async Task<IActionResult> UpdateProject(UpdateProjectDto updateProject)
         {
-            var project = _mapper.Map<Project>(createProject);
+            var project = _mapper.Map<Project>(updateProject);
             await _projectService.UpdateAsync(project);
             return Ok("Proje güncellendi");
         }

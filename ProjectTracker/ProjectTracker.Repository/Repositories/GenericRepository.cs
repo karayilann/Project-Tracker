@@ -53,7 +53,6 @@ namespace ProjectTracker.Repository.Repositories
             return await query.ToListAsync();
         }
 
-
         public async Task AddAsync(T entity)
         {
            await _dbSet.AddAsync(entity);

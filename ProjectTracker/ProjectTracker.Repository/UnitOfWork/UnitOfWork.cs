@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectTracker.Core.Entities;
+﻿using ProjectTracker.Core.Entities;
 using ProjectTracker.Core.Interfaces.Repositories;
 using ProjectTracker.Core.Interfaces.UnitOfWork;
 using ProjectTracker.Repository.Context;

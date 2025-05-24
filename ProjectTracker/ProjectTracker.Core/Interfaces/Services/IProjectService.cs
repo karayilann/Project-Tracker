@@ -1,13 +1,11 @@
-﻿using ProjectTracker.Core.Entities;
+﻿using System.Linq.Expressions;
+using ProjectTracker.Core.Entities;
 
 namespace ProjectTracker.Core.Interfaces.Services
 {
     public interface IProjectService : IService<Project>
     {
-        Task<List<Project>> GetAllAsync();
-        Task<Project> GetByIdAsync(int id);
-        Task AddAsync(Project project,List<int> userIds);
-        Task UpdateAsync(Project project);
-        Task DeleteAsync(int id);
+        Task<List<User>> GetUsersByIdsAsync(List<int> userIds);
+
     }
 }

@@ -16,7 +16,7 @@ namespace ProjectTracker.Service.Mapping
 
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<User, GetProjectUserDto>().ReverseMap();
-
+            CreateMap<User, GetUserDto>().ReverseMap();
 
             CreateMap<WorkItem, GetProjectWorkItemDto>().ReverseMap();
         }

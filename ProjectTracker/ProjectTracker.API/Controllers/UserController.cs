@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjectTracker.Core.DTOs.UserDtos;
 using ProjectTracker.Core.Interfaces.Services;
 
 namespace ProjectTracker.API.Controllers
@@ -22,7 +23,12 @@ namespace ProjectTracker.API.Controllers
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await _userService.GetAllAsync();
-            return Ok(users);
+            if (users == null || !users.Any())
+            {
+                return NotFound("No users found.");
+            }
+            var userDtos = _mapper.Map<List<GetUserDto>>(users);
+            return Ok(userDtos);
         }
     }
 }

@@ -2,7 +2,7 @@
 using ProjectTracker.Core.Interfaces.Services;
 using ProjectTracker.Core.Interfaces.UnitOfWork;
 
-namespace ProjectTracker.Service.Services.Project
+namespace ProjectTracker.Service.Services
 {
     using Core.Entities;
 

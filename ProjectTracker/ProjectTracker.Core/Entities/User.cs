@@ -1,4 +1,4 @@
-﻿using ProjectTracker.Core.Entities;
+﻿namespace ProjectTracker.Core.Entities;
 
 public class User : BaseEntity
 {

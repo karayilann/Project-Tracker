@@ -7,7 +7,7 @@ using ProjectTracker.Repository.Context;
 using ProjectTracker.Repository.Repositories;
 using ProjectTracker.Repository.UnitOfWork;
 using ProjectTracker.Service.Mapping;
-using ProjectTracker.Service.Services.Project;
+using ProjectTracker.Service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,9 +22,12 @@ builder.Services.AddDbContext<AppDbContext>(x =>
         option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name);
     });
 });
+
+// bu kýsýmý AutoFac ile dependency injection yapabilirsin
 builder.Services.AddAutoMapper(typeof(MapProfile));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

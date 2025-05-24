@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using ProjectTracker.Core.DTOs.UserDto;
 using ProjectTracker.Core.DTOs.UserDtos;
 using ProjectTracker.Core.Entities;
 using ProjectTracker.Core.Interfaces.Services;
@@ -20,34 +21,49 @@ namespace ProjectTracker.Service.Services
             return await _unitOfWork.Users.GetAllWithIncludesAsync();
         }
 
-        public Task<User?> GetByIdAsync(int id)
+        public async Task<User?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.Users.GetByIdAsync(id);
         }
 
-        public Task<List<User>> WhereAsync(Expression<Func<User, bool>> expression)
+        public async Task<List<User>> WhereAsync(Expression<Func<User, bool>> expression)
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.Users.WhereAsync(expression);
         }
 
-        public Task AddAsync(User entity)
+        public async Task AddAsync(User entity)
         {
-            throw new NotImplementedException();
+           await _unitOfWork.Users.AddAsync(entity);
+           await _unitOfWork.SaveChangesAsync();
         }
 
-        public Task UpdateAsync(User entity)
+        public async Task UpdateAsync(User entity)
         {
-            throw new NotImplementedException();
+            _unitOfWork.Users.Update(entity);
+            await _unitOfWork.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var entity = await _unitOfWork.Users.GetByIdAsync(id);
+            if (entity != null)
+            {
+                _unitOfWork.Users.Delete(entity);
+                await _unitOfWork.SaveChangesAsync();
+            }
+        }
+        public async Task<List<User>> FindUser(FindUserDto userDto)
+        {
+            return await _unitOfWork.Users.GetAllWithIncludesAsync(
+                u => u.Role,
+                u => u.WorkItems,
+                u => u.Projects
+            ).ContinueWith(task =>
+                task.Result
+                    .Where(u => u.Name == userDto.Name && u.Surname == userDto.Surname)
+                    .ToList()
+            );
         }
 
-        public User FindUser(UserSimpleDto userDto)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

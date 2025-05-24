@@ -1,11 +1,11 @@
 ﻿
-using ProjectTracker.Core.DTOs.UserDtos;
+using ProjectTracker.Core.DTOs.UserDto;
 using ProjectTracker.Core.Entities;
 
 namespace ProjectTracker.Core.Interfaces.Services
 {
     public interface IUserService : IService<User>
     {
-        User FindUser(UserSimpleDto userDto);
+        Task<List<User>> FindUser(FindUserDto userDto);
     }
 }

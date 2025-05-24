@@ -24,6 +24,7 @@ namespace ProjectTracker.Service.Mapping
             CreateMap<User, UserWithDetailsDto>().ReverseMap();
             CreateMap<User, UpdateUserDto>().ReverseMap();
             CreateMap<User, CreateUserDto>().ReverseMap();
+            CreateMap<User, FindUserDto>().ReverseMap();
 
             CreateMap<WorkItem, CreateWorkItemDto>().ReverseMap();
             CreateMap<WorkItem, UpdateWorkItemDto>().ReverseMap();

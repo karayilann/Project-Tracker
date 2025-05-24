@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectTracker.Core.DTOs.UserDto;
 using ProjectTracker.Core.DTOs.UserDtos;

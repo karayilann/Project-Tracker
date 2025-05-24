@@ -11,5 +11,4 @@ namespace ProjectTracker.Core.DTOs.ProjectDtos
         public InAppPriorities InAppPrioritiy { get; set; }
         public List<int>? AssignedUserIds { get; set; }
     }
-
 }

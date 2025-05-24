@@ -27,7 +27,7 @@ namespace ProjectTracker.API.Controllers
             {
                 return NotFound("No users found.");
             }
-            var userDtos = _mapper.Map<List<GetUserDto>>(users);
+            var userDtos = _mapper.Map<List<UserSimpleDto>>(users);
             return Ok(userDtos);
         }
     }

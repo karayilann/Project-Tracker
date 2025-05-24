@@ -6,17 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using ProjectTracker.Core.DTOs.UserDtos;
 using ProjectTracker.Core.Entities;
+using ProjectTracker.Core.DTOs.WorkItemDto;
 
 namespace ProjectTracker.Core.DTOs.ProjectDtos
 {
-    public class GetProjectsDto
+    public class GetProjectsDto : BaseDto
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
         public string? Description { get; set; }
         public ProjectStatus Status { get; set; }
         public InAppPriorities InAppPrioritiy { get; set; }
-        public List<GetProjectUserDto>? AssignedUsers { get; set; }
-        public List<GetProjectWorkItemDto>? WorkItems { get; set; }
+        public List<UserSimpleDto>? AssignedUsers { get; set; }
+        public List<WorkItemSimpleDto>? WorkItems { get; set; }
     }
 }

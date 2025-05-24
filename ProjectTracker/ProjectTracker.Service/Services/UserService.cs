@@ -45,7 +45,7 @@ namespace ProjectTracker.Service.Services
             throw new NotImplementedException();
         }
 
-        public User FindUser(GetUserDto userDto)
+        public User FindUser(UserSimpleDto userDto)
         {
             throw new NotImplementedException();
         }

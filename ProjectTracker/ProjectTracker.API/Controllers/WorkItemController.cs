@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectTracker.Core.DTOs.WorkItemDto;
 using ProjectTracker.Core.Entities;
@@ -20,7 +19,6 @@ namespace ProjectTracker.API.Controllers
             _mapper = mapper;
         }
 
-
         [HttpGet]
         public async Task<IActionResult> GetAllWorkItems()
         {
@@ -33,7 +31,6 @@ namespace ProjectTracker.API.Controllers
             var workItemDtos = _mapper.Map<List<WorkItemDto>>(workItems);
             return Ok(workItemDtos);
         }
-
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetWorkItemById(int id)
@@ -85,7 +82,6 @@ namespace ProjectTracker.API.Controllers
             return Ok($"{updateWorkItemDto.Name} adlı iş öğesi güncellendi.");
         }
 
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteWorkItem(int id)
         {
@@ -98,7 +94,5 @@ namespace ProjectTracker.API.Controllers
             await _workItemService.DeleteAsync(id);
             return Ok($"Work item with ID {id} deleted successfully.");
         }
-
     }
-
 }

@@ -58,7 +58,6 @@ namespace ProjectTracker.Service.Services
             await _unitOfWork.SaveChangesAsync();
         }
 
-
         public async Task UpdateAsync(WorkItem entity)
         {
             _unitOfWork.WorkItem.Update(entity);
@@ -99,7 +98,5 @@ namespace ProjectTracker.Service.Services
                 await _unitOfWork.SaveChangesAsync();
             }
         }
-
-
     }
 }

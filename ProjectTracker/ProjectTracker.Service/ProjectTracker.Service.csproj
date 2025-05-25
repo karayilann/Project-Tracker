@@ -15,4 +15,8 @@
     <ProjectReference Include="..\ProjectTracker.Repository\ProjectTracker.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="FluentValidation\" />
+  </ItemGroup>
+
 </Project>

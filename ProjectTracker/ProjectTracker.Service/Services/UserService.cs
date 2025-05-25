@@ -36,13 +36,11 @@ namespace ProjectTracker.Service.Services
            await _unitOfWork.Users.AddAsync(entity);
            await _unitOfWork.SaveChangesAsync();
         }
-
         public async Task UpdateAsync(User entity)
         {
             _unitOfWork.Users.Update(entity);
             await _unitOfWork.SaveChangesAsync();
         }
-
         public async Task DeleteAsync(int id)
         {
             var entity = await _unitOfWork.Users.GetByIdAsync(id);

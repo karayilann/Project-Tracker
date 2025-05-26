@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using ProjectTracker.Core.DTOs.UserDto;
-using ProjectTracker.Core.DTOs.UserDtos;
 using ProjectTracker.Core.Entities;
 using ProjectTracker.Core.Interfaces.Services;
 using ProjectTracker.Core.Interfaces.UnitOfWork;
@@ -33,14 +32,16 @@ namespace ProjectTracker.Service.Services
 
         public async Task AddAsync(User entity)
         {
-           await _unitOfWork.Users.AddAsync(entity);
-           await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.Users.AddAsync(entity);
+            await _unitOfWork.SaveChangesAsync();
         }
+
         public async Task UpdateAsync(User entity)
         {
             _unitOfWork.Users.Update(entity);
             await _unitOfWork.SaveChangesAsync();
         }
+
         public async Task DeleteAsync(int id)
         {
             var entity = await _unitOfWork.Users.GetByIdAsync(id);
@@ -50,6 +51,7 @@ namespace ProjectTracker.Service.Services
                 await _unitOfWork.SaveChangesAsync();
             }
         }
+
         public async Task<List<User>> FindUser(FindUserDto userDto)
         {
             return await _unitOfWork.Users.GetAllWithIncludesAsync(
@@ -63,5 +65,12 @@ namespace ProjectTracker.Service.Services
             );
         }
 
+        public async Task<User?> AuthenticateAsync(string name, string surname, string mail)
+        {
+            var users = await _unitOfWork.Users
+                .GetAllWithIncludesAsync(u => u.Role);
+
+            return users.FirstOrDefault(u => u.Name == name && u.Surname == surname && u.Mail == mail);
+        }
     }
 }

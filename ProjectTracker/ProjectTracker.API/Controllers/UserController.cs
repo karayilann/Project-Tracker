@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectTracker.Core.DTOs.UserDto;
+using ProjectTracker.Core.DTOs.UserDto.Authorization;
 using ProjectTracker.Core.DTOs.UserDtos;
 using ProjectTracker.Core.Entities;
 using ProjectTracker.Core.Interfaces.Services;
+using ProjectTracker.Service.Authorization.Abstract;
 
 namespace ProjectTracker.API.Controllers
 {
@@ -13,13 +16,16 @@ namespace ProjectTracker.API.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly IJwtAuthentication _jwtAuthentication;
 
-        public UserController(IUserService userService, IMapper mapper)
+        public UserController(IUserService userService, IMapper mapper, IJwtAuthentication jwtAuthentication)
         {
             _userService = userService;
             _mapper = mapper;
+            _jwtAuthentication = jwtAuthentication;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
@@ -72,6 +78,7 @@ namespace ProjectTracker.API.Controllers
             return Ok($"{updateUserDto.Name} adlı kullanıcı güncellendi.");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task<IActionResult> DeleteUser(int id)
         {
@@ -101,8 +108,17 @@ namespace ProjectTracker.API.Controllers
 
             var userSimpleDtos = _mapper.Map<List<UserWithDetailsDto>>(user);
             return Ok(userSimpleDtos);
+        }
 
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromQuery] LoginDto loginDto)
+        {
+            var user = await _userService.AuthenticateAsync(loginDto.Name, loginDto.Surname, loginDto.Mail);
+            if (user == null)
+                return Unauthorized("Kullanıcı bulunamadı.");
 
+            var token = _jwtAuthentication.GenerateToken(user);
+            return Ok(new { Token = token });
         }
     }
 }

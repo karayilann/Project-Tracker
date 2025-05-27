@@ -25,3 +25,4 @@ Project Tracker is a .NET 8-based application designed to help manage projects, 
 - SQL Server or another supported database
 
    
+Devam edilecek

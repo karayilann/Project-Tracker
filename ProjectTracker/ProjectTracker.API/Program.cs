@@ -1,4 +1,6 @@
 using System.Reflection;
+using System.Text;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -13,12 +15,15 @@ using ProjectTracker.Service.Authorization.Abstract;
 using ProjectTracker.Service.Authorization.Concrete;
 using ProjectTracker.Service.Mapping;
 using ProjectTracker.Service.Services;
+using ProjectTracker.Service.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+#region DbContext 
 
 builder.Services.AddDbContext<AppDbContext>(x =>
 {
@@ -27,7 +32,12 @@ builder.Services.AddDbContext<AppDbContext>(x =>
         option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name);
     });
 });
+
+#endregion
+
 builder.Services.AddScoped<IJwtAuthentication, JwtAuthentication>();
+
+#region Swagger JWT 
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -56,6 +66,9 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+#endregion
+
+#region JWT Options 
 
 builder.Services.AddAuthentication(options =>
 {
@@ -72,11 +85,15 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey =
-            new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     };
 });
 
+#endregion
+
 builder.Services.AddAuthorization();
+builder.Services.AddValidatorsFromAssemblyContaining<UserValidator>();
+
 
 // bu kýsýmý AutoFac ile dependency injection yapabilirsin
 builder.Services.AddAutoMapper(typeof(MapProfile));

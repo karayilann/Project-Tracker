@@ -7,6 +7,7 @@ using ProjectTracker.Core.DTOs.UserDtos;
 using ProjectTracker.Core.Entities;
 using ProjectTracker.Core.Interfaces.Services;
 using ProjectTracker.Service.Authorization.Abstract;
+using ProjectTracker.Service.Validation;
 
 namespace ProjectTracker.API.Controllers
 {
@@ -53,11 +54,19 @@ namespace ProjectTracker.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddUser(CreateUserDto createUserDto)
+        public async Task<IActionResult> AddUser([FromBody]CreateUserDto createUserDto)
         {
             if (createUserDto == null)
             {
                 return BadRequest("Invalid user data.");
+            }
+
+            UserValidator validator = new UserValidator();
+            var validationResult = await validator.ValidateAsync(createUserDto);
+
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors.Select(e => e.ErrorMessage));
             }
 
             var user = _mapper.Map<User>(createUserDto);

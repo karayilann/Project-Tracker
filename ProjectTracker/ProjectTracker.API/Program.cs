@@ -1,25 +1,18 @@
 using System.Reflection;
 using System.Text;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using ProjectTracker.Core.Interfaces.Repositories;
-using ProjectTracker.Core.Interfaces.Services;
-using ProjectTracker.Core.Interfaces.UnitOfWork;
+using ProjectTracker.API.DependencyResolvers;
 using ProjectTracker.Repository.Context;
-using ProjectTracker.Repository.Repositories;
-using ProjectTracker.Repository.UnitOfWork;
-using ProjectTracker.Service.Authorization.Abstract;
-using ProjectTracker.Service.Authorization.Concrete;
 using ProjectTracker.Service.Mapping;
-using ProjectTracker.Service.Services;
 using ProjectTracker.Service.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 
 builder.Services.AddControllers();
 
@@ -34,8 +27,6 @@ builder.Services.AddDbContext<AppDbContext>(x =>
 });
 
 #endregion
-
-builder.Services.AddScoped<IJwtAuthentication, JwtAuthentication>();
 
 #region Swagger JWT 
 
@@ -91,20 +82,21 @@ builder.Services.AddAuthentication(options =>
 
 #endregion
 
+#region AutoFac  
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+{
+    containerBuilder.RegisterModule<RepositoryModule>();
+    containerBuilder.RegisterModule<ServiceModule>();
+});
+
+#endregion
+
 builder.Services.AddAuthorization();
 builder.Services.AddValidatorsFromAssemblyContaining<UserValidator>();
 
-
-// bu kýsýmý AutoFac ile dependency injection yapabilirsin
 builder.Services.AddAutoMapper(typeof(MapProfile));
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IProjectService, ProjectService>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IRoleService, RoleService>();
-builder.Services.AddScoped<IWorkItemService, WorkItemService>();
-
-
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

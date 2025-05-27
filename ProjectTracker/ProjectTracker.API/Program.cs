@@ -18,6 +18,8 @@ builder.Services.AddControllers();
 
 #region DbContext 
 
+
+// Connection string defined in usersecrets
 builder.Services.AddDbContext<AppDbContext>(x =>
 {
     x.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), option =>
@@ -61,6 +63,7 @@ builder.Services.AddSwaggerGen(options =>
 
 #region JWT Options 
 
+// JWT configs are defined in usersecrets
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -82,7 +85,7 @@ builder.Services.AddAuthentication(options =>
 
 #endregion
 
-#region AutoFac  
+#region AutoFac Module
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
@@ -92,6 +95,7 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 });
 
 #endregion
+
 
 builder.Services.AddAuthorization();
 builder.Services.AddValidatorsFromAssemblyContaining<UserValidator>();
